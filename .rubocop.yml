@@ -1,0 +1,58 @@
+# This configuration should make
+# `qlty check --all`
+# in the q-base repo come back clean
+
+# Hushes some jibjab
+AllCops:
+  NewCops: enable
+
+# Changed Enabled to false
+Lint/UselessAssignment:
+  Description: 'Checks for useless assignment to a local variable.'
+  StyleGuide: '#underscore-unused-vars'
+  Enabled: false
+  AutoCorrect: contextual
+  VersionAdded: '0.11'
+  VersionChanged: '1.66'
+
+# Changed EnforcedStyle to camelCase
+Naming/VariableName:
+  Description: 'Use the configured style when naming variables.'
+  StyleGuide: '#snake-case-symbols-methods-vars'
+  Enabled: true
+  VersionAdded: '0.50'
+  VersionChanged: '1.73'
+  EnforcedStyle: camelCase
+  SupportedStyles:
+    - snake_case
+    - camelCase
+  AllowedIdentifiers: []
+  AllowedPatterns: []
+  ForbiddenIdentifiers: []
+  ForbiddenPatterns: []
+
+# Changed Enabled to false
+Style/FrozenStringLiteralComment:
+  Description: >-
+                 Add the frozen_string_literal comment to the top of files
+                 to help transition to frozen string literals by default.
+  Enabled: false
+  VersionAdded: '0.36'
+  VersionChanged: '0.79'
+  EnforcedStyle: always
+  SupportedStyles:
+    # `always` will always add the frozen string literal comment to a file
+    # regardless of the Ruby version or if `freeze` or `<<` are called on a
+    # string literal. It is possible that this will create errors.
+    - always
+    # `always_true` will add the frozen string literal comment to a file,
+    # similarly to the `always` style, but will also change any disabled
+    # comments (e.g. `# frozen_string_literal: false`) to be enabled.
+    - always_true
+    # `never` will enforce that the frozen string literal comment does not
+    # exist in a file.
+    - never
+  SafeAutoCorrect: false
+  Exclude:
+    # Prevent the Ruby warning: `'frozen_string_literal' is ignored after any tokens` when using Active Admin.
+    - '**/*.arb'
